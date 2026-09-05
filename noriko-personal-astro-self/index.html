@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5ece8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>NORIKO PERSONAL ASTRO｜SELF VERSION</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Zen+Maru+Gothic:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbf8f5; --paper:#fffdfb; --ink:#4f4846; --muted:#8f8581;
+  --pink:#d8aaaf; --gold:#b99a63; --sage:#aebcaf; --line:#eadfda;
+  --blush:#f3e7e2; --deep:#705d57;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:linear-gradient(180deg,#fbf7f4,#f7f2ee);color:var(--ink)}
+body{font-family:"Zen Maru Gothic",-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;font-weight:400;letter-spacing:.015em}
+button{font:inherit}
+button:focus-visible{outline:2px solid #d8b5b5;outline-offset:2px}
+.app{max-width:480px;margin:auto;min-height:100vh;padding:env(safe-area-inset-top) 16px calc(104px + env(safe-area-inset-bottom))}
+.hero{padding:38px 10px 22px;text-align:center;position:relative;overflow:hidden}
+.hero:before,.hero:after{content:"✿";position:absolute;color:#d9c6ba;font-size:40px;opacity:.34;pointer-events:none}
+.hero:before{left:8px;top:27px;transform:rotate(-12deg)}
+.hero:after{right:8px;top:17px;transform:rotate(12deg)}
+.brand{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;letter-spacing:.18em;font-size:14px;color:var(--gold);margin-bottom:9px}
+.brand-sub{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-size:23px;letter-spacing:.05em;color:#8f7f79;margin-bottom:8px}
+.tagline{font-size:12px;color:var(--muted);letter-spacing:.08em}
+.view{display:none}.view.active{display:block}
+.screen-head{margin:6px 2px 14px}
+.eyebrow{font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;letter-spacing:.13em;color:var(--gold);font-weight:600}
+.screen-title{font-family:"Cormorant Garamond","Zen Maru Gothic",Georgia,serif;font-size:31px;font-weight:500;line-height:1.15;color:#5a504d;margin:4px 0 2px}
+.screen-sub{font-size:12px;color:var(--muted)}
+.card{background:rgba(255,253,251,.95);border:1px solid var(--line);border-radius:22px;padding:18px;margin:12px 0;box-shadow:0 10px 30px rgba(92,73,64,.055)}
+.card-label{font-family:"Cormorant Garamond","Zen Maru Gothic",serif;letter-spacing:.10em;font-size:12px;font-weight:600;color:var(--gold);margin-bottom:7px}
+.theme{font-family:"Cormorant Garamond","Zen Maru Gothic",Georgia,serif;font-size:28px;line-height:1.45;color:#5f504b;margin:2px 0 6px}
+.body-copy{font-size:14px;line-height:1.9;color:#5f5754;margin:0}
+.action-card,.healthcare-card{background:#fff8f4;border:1px solid #ead8d0;border-radius:18px;padding:15px;margin:10px 0}
+.action-card strong,.healthcare-card strong{display:block;font-family:"Cormorant Garamond","Zen Maru Gothic",serif;color:#9a7e74;letter-spacing:.08em;font-size:12px;margin-bottom:7px}
+.action-main{font-size:16px;line-height:1.7;color:#5f504b}
+.letgo{background:#faf6f3}
+.category-list{display:grid;gap:10px;margin-top:16px}
+.category-btn{width:100%;border:1px solid var(--line);background:#fff;border-radius:18px;padding:15px 16px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 14px rgba(92,73,64,.028);color:var(--ink);text-align:left}
+.category-btn:active{transform:scale(.99)}
+.category-name{display:flex;flex-direction:column;gap:2px}
+.category-name b{font-family:"Cormorant Garamond",Georgia,serif;color:var(--gold);font-size:13px;letter-spacing:.10em}
+.category-name span{font-size:13px}
+.chev{font-family:Georgia,serif;color:#b69b91;font-size:22px}
+.detail-stack{display:grid;gap:10px}
+.detail{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:0 4px 14px rgba(92,73,64,.025)}
+.detail b{display:block;font-family:"Cormorant Garamond","Zen Maru Gothic",serif;color:var(--gold);font-size:12px;letter-spacing:.09em;margin-bottom:6px}
+.detail p{font-size:14px;line-height:1.85;margin:0;color:#5f5754}
+.reason{margin:14px 0 8px;border:1px dashed #dccbc1;border-radius:16px;background:#f8f1ec;overflow:hidden}
+.reason summary{cursor:pointer;padding:13px 15px;list-style:none;font-size:12px;color:#765f5a}
+.reason summary::-webkit-details-marker{display:none}
+.reason summary::after{content:"＋";float:right;color:#aa8f86}
+.reason[open] summary::after{content:"−"}
+.reason-body{border-top:1px dashed #dccbc1;padding:12px 15px 14px;font-size:12px;line-height:1.8;color:#736966}
+.sample-note{margin-top:9px;font-size:10px;line-height:1.65;color:var(--muted)}
+.back-btn{width:100%;border:1px solid var(--line);background:#fffaf8;color:#765f5a;border-radius:16px;padding:13px;margin-top:10px}
+.month-head{display:flex;align-items:center;justify-content:space-between;margin:6px 0 14px}
+.month-head button{width:42px;height:42px;border:1px solid var(--line);background:#fff;border-radius:13px;color:#7e6c66;font-size:20px}
+.month-label{font-family:"Cormorant Garamond",Georgia,serif;font-size:25px;font-weight:500;color:#5d504c}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.dow{text-align:center;font-family:"Cormorant Garamond",Georgia,serif;font-size:10px;letter-spacing:.08em;color:var(--muted);padding:4px 0 8px}
+.day{min-height:64px;border:1px solid var(--line);background:#fff;border-radius:14px;padding:8px 3px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;color:#6c5e59;cursor:pointer}
+.day.off{opacity:.24;background:transparent;border-color:transparent;cursor:default}
+.day .num{font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;font-weight:600}
+.day .hint{font-size:8px;color:#9d8f89;margin-top:7px;line-height:1.2;text-align:center;min-height:20px}
+.day.today{outline:1.5px solid #d8b5b5;background:#fff9f7}
+.day.selected{border-color:#d9beb7;background:#fff6f3;box-shadow:0 5px 14px rgba(121,91,80,.09)}
+.day:active{transform:scale(.97)}
+.month-note{margin-top:16px;padding:14px 15px;border-radius:18px;background:#fff;border:1px solid var(--line);font-size:12px;line-height:1.75;color:#6e6461}
+.nav{position:fixed;bottom:0;left:0;right:0;z-index:20;background:rgba(255,252,249,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
+.nav-inner{max-width:480px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.nav button{border:0;background:transparent;color:var(--muted);border-radius:14px;padding:10px 5px;font-size:11px;letter-spacing:.05em}
+.nav button.active{background:var(--blush);color:var(--deep)}
+.nav small{display:block;font-size:9px;opacity:.78;margin-top:2px}
+@media(max-width:390px){
+  .app{padding-left:12px;padding-right:12px}
+  .hero{padding-top:32px}
+  .screen-title{font-size:29px}
+  .calendar{gap:3px}
+  .day{min-height:60px;border-radius:12px;padding-left:1px;padding-right:1px}
+  .day .hint{font-size:7.5px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="hero">
+    <div class="brand">NORIKO PERSONAL ASTRO</div>
+    <div class="brand-sub">Ma boussole</div>
+    <div class="tagline">自分を知る。今日を暮らす。</div>
+  </header>
+
+  <main>
+    <section id="monthlyView" class="view active" aria-label="Monthly calendar">
+      <div class="month-head">
+        <button type="button" id="prevMonth" aria-label="前の月">‹</button>
+        <div class="month-label" id="monthLabel"></div>
+        <button type="button" id="nextMonth" aria-label="次の月">›</button>
+      </div>
+      <div class="calendar" id="calendar"></div>
+      <div class="month-note">日付をタップすると、その日の「今日のわたし」を開きます。Prototype No.1では、9月5日の内容をUI確認用サンプルとして収録しています。</div>
+    </section>
+
+    <section id="todayView" class="view" aria-label="Today">
+      <div class="screen-head">
+        <div class="eyebrow" id="todayEyebrow"></div>
+        <div class="screen-title">TODAY</div>
+        <div class="screen-sub">今日のわたし</div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">TODAY'S THEME</div>
+        <div class="theme" id="todayTheme"></div>
+        <div class="card-label" style="margin-top:16px">TODAY'S MESSAGE</div>
+        <p class="body-copy" id="todayMessage"></p>
+      </div>
+
+      <div class="action-card">
+        <strong>TODAY'S ACTION</strong>
+        <div class="action-main" id="todayAction"></div>
+      </div>
+
+      <div class="action-card letgo">
+        <strong>LET GO</strong>
+        <div class="action-main" id="todayLetGo"></div>
+      </div>
+
+      <div class="category-list">
+        <button class="category-btn" data-detail="work" type="button">
+          <span class="category-name"><b>WORK</b><span>今日の仕事</span></span><span class="chev">›</span>
+        </button>
+        <button class="category-btn" data-detail="relation" type="button">
+          <span class="category-name"><b>RELATION</b><span>対人関係</span></span><span class="chev">›</span>
+        </button>
+        <button class="category-btn" data-detail="health" type="button">
+          <span class="category-name"><b>HEALTH</b><span>心と身体</span></span><span class="chev">›</span>
+        </button>
+      </div>
+
+      <details class="reason">
+        <summary>なぜ今日はこのアドバイスなの？</summary>
+        <div class="reason-body">
+          <div id="todayReason"></div>
+          <div class="sample-note" id="todaySampleNote"></div>
+        </div>
+      </details>
+    </section>
+
+    <section id="detailView" class="view" aria-label="Detail">
+      <div class="screen-head">
+        <div class="eyebrow" id="detailDate"></div>
+        <div class="screen-title" id="detailTitle"></div>
+        <div class="screen-sub" id="detailSubtitle"></div>
+      </div>
+      <div class="detail-stack" id="detailStack"></div>
+      <details class="reason">
+        <summary>なぜ今日はこのアドバイスなの？</summary>
+        <div class="reason-body">
+          <div id="detailReason"></div>
+          <div class="sample-note" id="detailSampleNote"></div>
+        </div>
+      </details>
+      <button type="button" class="back-btn" id="backToday">TODAYへ戻る</button>
+    </section>
+  </main>
+</div>
+
+<nav class="nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <button id="navMonth" type="button" class="active">MONTH<small>月間</small></button>
+    <button id="navToday" type="button">TODAY<small>今日のわたし</small></button>
+  </div>
+</nav>
+
+<script>
+const SAMPLE_NOTICE = "UI確認用サンプル文章です。精密な出生図×対象日トランジット計算は次工程で差し替える前提です。";
+
+const sampleData = {
+  "2026-09-05": {
+    meta:{source:"ui-sample"},
+    today:{
+      theme:"余白を残して動く。",
+      message:"今日は、全部を一度に片づけようとするより、目の前のことをひとつずつ進める方が心地よさそうです。人との時間も、自分の時間も、少し余白を残して選んでみて。",
+      action:"予定と予定の間に10分だけ余白をつくる。",
+      letGo:"全部を今日中に決めること。",
+      reason:"今日は「動くこと」と「整えること」のバランスを見る日のサンプルとして設計しています。"
+    },
+    work:{
+      flow:"勢いだけで進めるより、優先順位を決めてひとつずつ片づけると流れを作りやすい日。",
+      bestUse:"人と話しながら考えを整理する仕事や、次の一手を決めるための確認作業。",
+      watch:"細かい仕事まで全部自分で抱え込まないこと。",
+      action:"午前中に、今日いちばん大切な仕事をひとつ終える。",
+      reason:"WORK画面の情報量・読みやすさを確認するためのサンプルです。"
+    },
+    relation:{
+      flow:"人とのやり取りを増やすより、心地よい距離感を選ぶことを大切にしたい日。",
+      communication:"伝える前に一度相手の話を最後まで聞く。確認したいことは、想像だけで決めず短く言葉にする。",
+      boundary:"相手に合わせすぎず、自分の予定やペースも同じくらい大切に。",
+      action:"返事を急がず、一度自分の気持ちを確認してから伝える。",
+      reason:"RELATIONを恋愛限定にせず、家族・友人・仕事など全般に使えるか確認するためのサンプルです。"
+    },
+    health:{
+      condition:"頭の中を使い続けると、休んでいるつもりでも気持ちの切り替えが遅くなりやすいかもしれません。",
+      carePoint:"何かを頑張って整えるより、身体側からゆっくりOFFへ切り替える時間を。",
+      healthcare:"湯船に10〜15分。",
+      healthcareNote:"温かい時間をひとつ入れて、今日のスイッチをゆっくり切る。",
+      reason:"HEALTHは医療判断ではなく、日常のセルフケアとして使えるか確認するためのサンプルです。"
+    }
+  }
+};
+
+const genericSample = {
+  meta:{source:"ui-sample"},
+  today:{
+    theme:"今日のペースを、自分で選ぶ。",
+    message:"この日はPrototype No.1の画面確認用データです。まず予定を眺めて、今の自分に必要なことをひとつ選ぶ使い方を想定しています。",
+    action:"今日いちばん大切にしたいことを、ひとつ決める。",
+    letGo:"先回りして全部を決めること。",
+    reason:"この日にはまだ精密な占星術計算データを入れていません。"
+  },
+  work:{
+    flow:"今日は優先順位をひとつ決めてから動く、というUI確認用のサンプルです。",
+    bestUse:"最初に大切な仕事を決める。",
+    watch:"予定を増やしすぎない。",
+    action:"最優先をひとつ書き出す。",
+    reason:"精密な占星術計算前のUIサンプルです。"
+  },
+  relation:{
+    flow:"相手の反応より、自分がどう関わりたいかを確認するためのサンプルです。",
+    communication:"短く、分かりやすく伝える。",
+    boundary:"自分の時間も相手の時間も尊重する。",
+    action:"ひとつだけ丁寧に返事をする。",
+    reason:"精密な占星術計算前のUIサンプルです。"
+  },
+  health:{
+    condition:"無理のないペースを確認するためのサンプルです。",
+    carePoint:"小さな休憩を意識する。",
+    healthcare:"5分だけ外の空気に触れる。",
+    healthcareNote:"頑張るためではなく、切り替えるための小休止に。",
+    reason:"医療判断ではなく、日常セルフケア表示のUIサンプルです。"
+  }
+};
+
+const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const weekdayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+let displayMonth = new Date(2026,8,1);
+let selectedDate = new Date(2026,8,5);
+
+const $ = (id)=>document.getElementById(id);
+
+function isoLocal(date){
+  const y=date.getFullYear();
+  const m=String(date.getMonth()+1).padStart(2,"0");
+  const d=String(date.getDate()).padStart(2,"0");
+  return `${y}-${m}-${d}`;
+}
+function formatEyebrow(date){
+  return `${monthNames[date.getMonth()]} ${String(date.getDate()).padStart(2,"0")} · ${weekdayNames[date.getDay()]}`;
+}
+function dataFor(date){ return sampleData[isoLocal(date)] || genericSample; }
+
+function showView(id){
+  document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+  $(id).classList.add("active");
+  $("navMonth").classList.toggle("active",id==="monthlyView");
+  $("navToday").classList.toggle("active",id!=="monthlyView");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function renderCalendar(){
+  $("monthLabel").textContent = `${monthNames[displayMonth.getMonth()]} ${displayMonth.getFullYear()}`;
+  const cal=$("calendar");
+  cal.innerHTML="";
+  ["SUN","MON","TUE","WED","THU","FRI","SAT"].forEach(d=>{
+    const e=document.createElement("div"); e.className="dow"; e.textContent=d; cal.appendChild(e);
+  });
+
+  const y=displayMonth.getFullYear(), m=displayMonth.getMonth();
+  const first=new Date(y,m,1);
+  const start=new Date(y,m,1-first.getDay());
+  const now=new Date();
+
+  for(let i=0;i<42;i++){
+    const d=new Date(start); d.setDate(start.getDate()+i);
+    const btn=document.createElement("button");
+    btn.type="button"; btn.className="day";
+    if(d.getMonth()!==m) btn.classList.add("off");
+    if(d.toDateString()===now.toDateString()) btn.classList.add("today");
+    if(d.toDateString()===selectedDate.toDateString()) btn.classList.add("selected");
+    btn.innerHTML=`<span class="num">${d.getDate()}</span><span class="hint">${isoLocal(d)==="2026-09-05"?"SELF<br>sample":""}</span>`;
+    if(d.getMonth()===m){
+      btn.addEventListener("click",()=>{
+        selectedDate=new Date(d);
+        renderToday(); renderCalendar(); showView("todayView");
+      });
+    } else { btn.disabled=true; }
+    cal.appendChild(btn);
+  }
+}
+
+function renderToday(){
+  const data=dataFor(selectedDate);
+  $("todayEyebrow").textContent=formatEyebrow(selectedDate);
+  $("todayTheme").textContent=data.today.theme;
+  $("todayMessage").textContent=data.today.message;
+  $("todayAction").textContent=data.today.action;
+  $("todayLetGo").textContent=data.today.letGo;
+  $("todayReason").textContent=data.today.reason;
+  $("todaySampleNote").textContent = data.meta.source==="ui-sample" ? SAMPLE_NOTICE : "";
+}
+
+function renderDetail(kind){
+  const data=dataFor(selectedDate);
+  const cfg={
+    work:{title:"WORK",sub:"今日の仕事",items:[
+      ["WORK FLOW",data.work.flow],["BEST USE",data.work.bestUse],["WATCH",data.work.watch],["WORK ACTION",data.work.action]
+    ],reason:data.work.reason},
+    relation:{title:"RELATION",sub:"対人関係",items:[
+      ["RELATION FLOW",data.relation.flow],["COMMUNICATION",data.relation.communication],["BOUNDARY",data.relation.boundary],["RELATION ACTION",data.relation.action]
+    ],reason:data.relation.reason},
+    health:{title:"HEALTH",sub:"心と身体",items:[
+      ["CONDITION",data.health.condition],["CARE POINT",data.health.carePoint]
+    ],reason:data.health.reason}
+  }[kind];
+
+  $("detailDate").textContent=formatEyebrow(selectedDate);
+  $("detailTitle").textContent=cfg.title;
+  $("detailSubtitle").textContent=cfg.sub;
+  const stack=$("detailStack"); stack.innerHTML="";
+
+  cfg.items.forEach(([label,text])=>{
+    const div=document.createElement("div");
+    div.className="detail";
+    div.innerHTML=`<b>${label}</b><p>${text}</p>`;
+    stack.appendChild(div);
+  });
+
+  if(kind==="health"){
+    const hc=document.createElement("div");
+    hc.className="healthcare-card";
+    hc.innerHTML=`<strong>TODAY'S HEALTHCARE · 今日のおすすめヘルスケア</strong>
+      <div class="action-main">${data.health.healthcare}</div>
+      <p class="body-copy" style="font-size:13px;margin-top:7px">${data.health.healthcareNote}</p>`;
+    stack.appendChild(hc);
+  }
+
+  $("detailReason").textContent=cfg.reason;
+  $("detailSampleNote").textContent = data.meta.source==="ui-sample" ? SAMPLE_NOTICE : "";
+  showView("detailView");
+}
+
+function goToday(){ renderToday(); showView("todayView"); }
+
+document.querySelectorAll("[data-detail]").forEach(btn=>{
+  btn.addEventListener("click",()=>renderDetail(btn.dataset.detail));
+});
+$("backToday").addEventListener("click",goToday);
+$("navMonth").addEventListener("click",()=>showView("monthlyView"));
+$("navToday").addEventListener("click",goToday);
+$("prevMonth").addEventListener("click",()=>{
+  displayMonth=new Date(displayMonth.getFullYear(),displayMonth.getMonth()-1,1); renderCalendar();
+});
+$("nextMonth").addEventListener("click",()=>{
+  displayMonth=new Date(displayMonth.getFullYear(),displayMonth.getMonth()+1,1); renderCalendar();
+});
+
+renderCalendar();
+renderToday();
+</script>
+</body>
+</html>
