@@ -1,0 +1,1135 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f8f1ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>わた道手帳｜Seasonal Monthly Enhancement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Zen+Maru+Gothic:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbf7f3;
+  --paper:#fffdfb;
+  --paper2:#fff8f4;
+  --ink:#514744;
+  --muted:#8f817c;
+  --line:#eadbd4;
+  --blush:#f2e4de;
+  --blush2:#f8efea;
+  --gold:#b59a66;
+  --accent:#c9a29c;
+  --deep:#6f5c56;
+  --shadow:0 10px 28px rgba(91,69,59,.055);
+  --navH:82px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:linear-gradient(180deg,#fcf9f7,#f8f1ec);color:var(--ink)}
+body{
+  font-family:"Zen Maru Gothic",-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  letter-spacing:.015em;
+}
+button,input,textarea{font:inherit}
+button{color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{
+  outline:2px solid #d5b1aa;
+  outline-offset:2px;
+}
+.app{
+  max-width:520px;
+  margin:auto;
+  min-height:100vh;
+  padding:env(safe-area-inset-top) 16px calc(var(--navH) + 42px + env(safe-area-inset-bottom));
+}
+.view{display:none}
+.view.active{display:block}
+
+.planner-hero,.astro-hero{
+  position:relative;
+  text-align:center;
+  padding:34px 12px 18px;
+}
+.planner-kicker,.astro-brand{
+  font-family:"Cormorant Garamond",Georgia,serif;
+  color:var(--gold);
+  letter-spacing:.18em;
+  font-size:13px;
+  font-weight:600;
+}
+.logo-home{
+  border:0;
+  background:transparent;
+  padding:4px 8px;
+  margin:0 auto;
+  display:inline-block;
+  cursor:pointer;
+  color:inherit;
+}
+.logo-home:active{opacity:.72}
+.planner-title{
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:34px;
+  line-height:1.05;
+  color:#5e504b;
+  margin:6px 0 6px;
+}
+.planner-sub,.astro-tagline{
+  color:var(--muted);
+  font-size:12px;
+  letter-spacing:.08em;
+}
+.astro-home{
+  border:0;background:transparent;padding:4px 8px;margin:5px auto 6px;display:block;
+  font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-size:28px;
+  color:#8c7b75;letter-spacing:.05em;cursor:pointer
+}
+
+/* ─────────────────────────────────────────
+   SEASONAL MONTHLY ENHANCEMENT
+   9月: cosmos / 10月: kinmokusei / 11月: momiji
+   ───────────────────────────────────────── */
+.seasonal-decoration{
+  position:absolute;
+  top:18px;
+  width:88px;
+  height:66px;
+  opacity:.40;
+  pointer-events:none;
+  transform-origin:50% 85%;
+  z-index:0;
+}
+.seasonal-decoration svg{width:100%;height:100%;display:block;overflow:visible}
+.seasonal-left{left:-6px;animation:seasonSwayL 5.1s ease-in-out infinite}
+.seasonal-right{right:-6px;transform:scaleX(-1);animation:seasonSwayR 6.0s ease-in-out .8s infinite}
+.planner-hero>*:not(.seasonal-decoration),
+.astro-hero>*:not(.seasonal-decoration){position:relative;z-index:1}
+
+@keyframes seasonSwayL{
+  0%,100%{transform:translate(0,0) rotate(-2.5deg)}
+  38%{transform:translate(4px,2px) rotate(3deg)}
+  72%{transform:translate(1px,5px) rotate(-1deg)}
+}
+@keyframes seasonSwayR{
+  0%,100%{transform:scaleX(-1) translate(0,0) rotate(-2deg)}
+  42%{transform:scaleX(-1) translate(4px,3px) rotate(3deg)}
+  76%{transform:scaleX(-1) translate(1px,5px) rotate(-1deg)}
+}
+
+.season-particle-layer{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+.season-particle{
+  position:absolute;
+  top:-24px;
+  width:10px;
+  height:10px;
+  opacity:.18;
+  will-change:transform;
+}
+
+/* 9月 コスモスの花びら */
+body[data-season="cosmos"] .season-particle{
+  width:11px;height:6px;
+  border-radius:90% 10% 90% 10%;
+  background:rgba(210,148,157,.42);
+}
+body[data-season="cosmos"] .season-particle:nth-child(even){
+  background:rgba(230,181,187,.38);
+}
+
+/* 10月 金木犀の小花 */
+body[data-season="kinmokusei"] .season-particle{
+  width:8px;height:8px;
+  background:transparent;
+}
+body[data-season="kinmokusei"] .season-particle::before,
+body[data-season="kinmokusei"] .season-particle::after{
+  content:"";
+  position:absolute;left:3px;top:0;width:3px;height:8px;
+  border-radius:50%;
+  background:rgba(218,165,75,.42);
+}
+body[data-season="kinmokusei"] .season-particle::after{transform:rotate(90deg)}
+
+/* 11月 紅葉の小葉 */
+body[data-season="momiji"] .season-particle{
+  width:10px;height:12px;
+  background:rgba(166,101,78,.28);
+  clip-path:polygon(50% 0,63% 28%,92% 19%,75% 48%,100% 62%,66% 67%,60% 100%,48% 73%,27% 96%,31% 67%,0 60%,26% 47%,9% 21%,38% 29%);
+}
+
+/* その他の月はごく静かなグレージュの点 */
+body[data-season="neutral"] .season-particle{
+  width:5px;height:5px;border-radius:50%;
+  background:rgba(170,151,141,.18);
+}
+
+.season-particle.p1{left:8%;animation:seasonFall1 13s linear infinite}
+.season-particle.p2{left:27%;animation:seasonFall2 17s linear 2.8s infinite}
+.season-particle.p3{left:54%;animation:seasonFall3 15s linear 5.2s infinite}
+.season-particle.p4{left:75%;animation:seasonFall4 18s linear 1.5s infinite}
+.season-particle.p5{left:91%;animation:seasonFall5 14s linear 7.1s infinite}
+
+@keyframes seasonFall1{
+  0%{transform:translate(0,-7vh) rotate(10deg)}
+  32%{transform:translate(22px,31vh) rotate(90deg)}
+  66%{transform:translate(-10px,67vh) rotate(178deg)}
+  100%{transform:translate(18px,108vh) rotate(270deg)}
+}
+@keyframes seasonFall2{
+  0%{transform:translate(0,-8vh) rotate(25deg)}
+  36%{transform:translate(-24px,35vh) rotate(118deg)}
+  71%{transform:translate(16px,72vh) rotate(211deg)}
+  100%{transform:translate(-10px,108vh) rotate(302deg)}
+}
+@keyframes seasonFall3{
+  0%{transform:translate(0,-6vh) rotate(0deg)}
+  29%{transform:translate(17px,29vh) rotate(78deg)}
+  63%{transform:translate(-18px,64vh) rotate(168deg)}
+  100%{transform:translate(8px,108vh) rotate(263deg)}
+}
+@keyframes seasonFall4{
+  0%{transform:translate(0,-7vh) rotate(20deg)}
+  34%{transform:translate(-18px,32vh) rotate(107deg)}
+  69%{transform:translate(22px,70vh) rotate(201deg)}
+  100%{transform:translate(-14px,108vh) rotate(294deg)}
+}
+@keyframes seasonFall5{
+  0%{transform:translate(0,-10vh) rotate(46deg)}
+  39%{transform:translate(-20px,38vh) rotate(135deg)}
+  74%{transform:translate(14px,75vh) rotate(219deg)}
+  100%{transform:translate(-8px,108vh) rotate(311deg)}
+}
+
+.app,.nav,.modal{position:relative;z-index:1}
+.nav,.modal{position:fixed}
+
+@media (prefers-reduced-motion: reduce){
+  .seasonal-decoration,
+  .season-particle{animation:none!important}
+  .season-particle{
+    top:auto;
+    bottom:10%;
+    opacity:.10;
+  }
+}
+
+/* theme variables */
+body[data-season="cosmos"]{
+  --season-base:#fbf7f2;
+  --season-accent:#cfa7a3;
+  --season-soft:#f7ebe7;
+  --season-leaf:#aaa28f;
+}
+body[data-season="kinmokusei"]{
+  --season-base:#fbf7ee;
+  --season-accent:#d8aa62;
+  --season-soft:#faf0dc;
+  --season-leaf:#99a186;
+}
+body[data-season="momiji"]{
+  --season-base:#f8f3ee;
+  --season-accent:#aa7465;
+  --season-soft:#f2e5df;
+  --season-leaf:#94816f;
+}
+body[data-season="neutral"]{
+  --season-base:#fbf7f3;
+  --season-accent:#c9a29c;
+  --season-soft:#f6ece7;
+  --season-leaf:#a99a92;
+}
+html,body{
+  background:linear-gradient(180deg,var(--season-base,#fbf7f3),#f8f1ec);
+  transition:background .45s ease;
+}
+.month-head button{
+  transition:border-color .35s ease, background .35s ease, color .35s ease;
+}
+.month-head{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;margin:12px 0 15px
+}
+.month-head button{
+  width:46px;height:46px;border:1px solid var(--line);background:#fff;border-radius:16px;
+  font-size:22px;color:#7b6862;box-shadow:0 4px 12px rgba(90,70,60,.03)
+}
+.month-title{
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:28px;font-weight:500;color:#5a4e4a
+}
+
+.calendar{
+  display:grid;
+  grid-template-columns:repeat(7,minmax(0,1fr));
+  gap:5px;
+  width:100%;
+  min-width:0;
+}
+.dow{
+  min-width:0;
+  text-align:center;
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:11px;
+  letter-spacing:.08em;
+  color:var(--muted);
+  padding:5px 0 8px;
+}
+.dow.sun{color:#b58a86}
+.dow.sat{color:#91a6ac}
+
+.day{
+  min-width:0;
+  width:100%;
+  height:76px;
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:15px;
+  padding:6px 2px 5px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  overflow:hidden;
+  cursor:pointer;
+  box-shadow:0 3px 10px rgba(92,73,64,.02);
+}
+.day.off{
+  opacity:.25;
+  background:transparent;
+  border-color:transparent;
+  box-shadow:none;
+  cursor:default;
+}
+.day .num{
+  flex:0 0 auto;
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:14px;
+  line-height:1;
+  font-weight:600;
+  color:var(--ink);
+}
+.day.sun{background:#fff3f2;border-color:#f1d9d6}
+.day.sat{background:#f2f6f7;border-color:#dce8ea}
+.day.sun .num{color:#b58a86}
+.day.sat .num{color:#91a6ac}
+
+.day.holiday,
+.day.holiday.sat,
+.day.holiday.sun{
+  background:#fff3f2;
+  border-color:#f1d9d6;
+}
+.day.holiday .num{color:#b58a86}
+
+.day.today{outline:1.5px solid #d4b1aa;outline-offset:-1px}
+.day.sun.today,
+.day.holiday.today{background:#fff1f0}
+.day.sat.today:not(.holiday){background:#eef5f7}
+.day.today:not(.sun):not(.sat):not(.holiday){background:#fff9f7}
+
+.day.selected{
+  border-color:#d5b0a9;
+  box-shadow:0 5px 14px rgba(121,91,80,.09);
+}
+.day.sun.selected,
+.day.holiday.selected{background:#fdebea}
+.day.sat.selected:not(.holiday){background:#eaf3f5}
+.day.selected:not(.sun):not(.sat):not(.holiday){background:#fff4ef}
+
+.day-meta{
+  min-width:0;
+  width:100%;
+  flex:1 1 auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  gap:2px;
+  margin-top:4px;
+  overflow:hidden;
+  pointer-events:none;
+}
+.holiday-name{
+  min-width:0;
+  width:100%;
+  min-height:18px;
+  padding:0 1px;
+  color:#b58a86;
+  font-size:6.4px;
+  font-weight:500;
+  line-height:1.08;
+  text-align:center;
+  overflow-wrap:anywhere;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+}
+.moon-phase{
+  flex:0 0 auto;
+  min-height:13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#9c8f88;
+}
+.moon-svg{
+  width:11px;
+  height:11px;
+  display:block;
+}
+.moon-svg .outline{
+  stroke:#9c8f88;
+  stroke-width:1.15;
+  fill:none;
+}
+.moon-svg .softfill{fill:#b2a08d;opacity:.62}
+.moon-svg .maskfill{fill:var(--season-base,#fbf7f3)}
+.day .dots{
+  flex:0 0 6px;
+  min-height:6px;
+  margin-top:1px;
+  display:flex;
+  gap:3px;
+  align-items:center;
+  justify-content:center;
+}
+.day .dot{
+  width:5px;height:5px;border-radius:50%;
+  background:#c7a39a;
+}
+.day .theme-mark{
+  flex:0 0 7px;
+  min-height:7px;
+  max-width:100%;
+  margin-top:1px;
+  font-size:5.8px;
+  line-height:1;
+  color:#9d8b84;
+  text-align:center;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:clip;
+}
+.day:active{transform:scale(.98)}
+
+.section-head{margin:4px 2px 14px}
+.eyebrow{
+  font-family:"Cormorant Garamond",Georgia,serif;color:var(--gold);
+  letter-spacing:.13em;font-size:13px;font-weight:600
+}
+.screen-title{
+  font-family:"Cormorant Garamond","Zen Maru Gothic",Georgia,serif;
+  font-size:32px;line-height:1.08;font-weight:500;margin:4px 0 3px;color:#594d49
+}
+.screen-sub{font-size:12px;color:var(--muted)}
+
+.self-peek{
+  width:100%;border:1px solid #ead8d1;background:linear-gradient(180deg,#fffaf7,#fff6f1);
+  border-radius:22px;padding:16px;text-align:left;box-shadow:var(--shadow);margin:12px 0 18px
+}
+.self-peek .label{
+  font-family:"Zen Maru Gothic",-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  color:var(--gold);letter-spacing:.10em;font-size:12px;font-weight:500
+}
+.self-peek .theme{
+  font-family:"Zen Maru Gothic",-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  font-size:23px;line-height:1.55;color:#5d4f49;margin:5px 0 3px;font-weight:400
+}
+.self-peek .go{
+  font-family:"Zen Maru Gothic",-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  font-size:11px;color:#8f7c75;font-weight:400
+}
+
+.timeline{
+  position:relative;border-top:1px solid var(--line);margin-top:10px
+}
+.hour-row{
+  position:relative;display:grid;grid-template-columns:54px 1fr;min-height:74px;
+  border-bottom:1px solid #eee4df
+}
+.hour-label{
+  padding-top:9px;font-family:"Cormorant Garamond",Georgia,serif;font-size:12px;color:#9a8b85
+}
+.hour-space{position:relative}
+.event-card{
+  position:absolute;left:4px;right:4px;z-index:4;border:1px solid #dfc7bf;background:#fff7f3;
+  border-radius:13px;padding:8px 10px;box-shadow:0 5px 14px rgba(86,63,55,.05);
+  text-align:left;overflow:hidden;cursor:pointer
+}
+.event-card b{display:block;font-size:12px;color:#655650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.event-card small{font-size:10px;color:#927f78}
+.daily-note{
+  margin:14px 0 6px;padding:13px 14px;border-radius:16px;border:1px dashed #dfcfc7;
+  color:#7f716c;font-size:11px;line-height:1.7
+}
+
+.card{
+  background:rgba(255,253,251,.96);border:1px solid var(--line);border-radius:22px;
+  padding:18px;margin:12px 0;box-shadow:var(--shadow)
+}
+.card-label,.detail b{
+  display:block;font-family:"Cormorant Garamond","Zen Maru Gothic",serif;
+  letter-spacing:.10em;font-size:12px;font-weight:600;color:var(--gold);margin-bottom:7px
+}
+.astro-theme{
+  font-family:"Cormorant Garamond","Zen Maru Gothic",Georgia,serif;
+  font-size:29px;line-height:1.45;color:#5f504b;margin:2px 0 7px
+}
+.body-copy{font-size:14px;line-height:1.9;color:#5f5754;margin:0}
+.action-card{
+  background:#fff8f4;border:1px solid #ead8d0;border-radius:18px;padding:15px;margin:10px 0
+}
+.action-card strong{
+  display:block;font-family:"Cormorant Garamond","Zen Maru Gothic",serif;
+  color:#9a7e74;letter-spacing:.08em;font-size:12px;margin-bottom:7px
+}
+.action-main{font-size:16px;line-height:1.7;color:#5f504b}
+.category-list{display:grid;gap:10px;margin-top:16px}
+.category-btn{
+  width:100%;border:1px solid var(--line);background:#fff;border-radius:18px;padding:15px 16px;
+  display:flex;align-items:center;justify-content:space-between;color:var(--ink);text-align:left
+}
+.category-name{display:flex;flex-direction:column;gap:2px}
+.category-name b{font-family:"Cormorant Garamond",Georgia,serif;color:var(--gold);font-size:13px;letter-spacing:.10em}
+.category-name span{font-size:13px}
+.chev{font-family:Georgia,serif;color:#b69b91;font-size:22px}
+.detail-stack{display:grid;gap:10px}
+.detail{
+  background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px
+}
+.detail p{font-size:14px;line-height:1.85;margin:0;color:#5f5754}
+.healthcare{
+  background:#fff5ef;border:1px solid #e7cec4;border-radius:18px;padding:16px
+}
+.healthcare .big{font-size:18px;color:#5f504b;line-height:1.6}
+.reason{margin:14px 0 8px;border:1px dashed #dccbc1;border-radius:16px;background:#f8f1ec;overflow:hidden}
+.reason summary{cursor:pointer;padding:13px 15px;list-style:none;font-size:12px;color:#765f5a}
+.reason summary::-webkit-details-marker{display:none}
+.reason summary::after{content:"＋";float:right;color:#aa8f86}
+.reason[open] summary::after{content:"−"}
+.reason-body{border-top:1px dashed #dccbc1;padding:12px 15px 14px;font-size:12px;line-height:1.8;color:#736966}
+.sample-note{margin-top:8px;font-size:10px;color:#958882;line-height:1.65}
+.back-btn{
+  width:100%;border:1px solid var(--line);background:#fffaf8;color:#765f5a;border-radius:16px;
+  padding:13px;margin-top:10px
+}
+
+.nav{
+  position:fixed;bottom:0;left:0;right:0;z-index:30;background:rgba(255,252,249,.97);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);
+  padding:8px 10px calc(8px + env(safe-area-inset-bottom))
+}
+.nav-inner{max-width:520px;margin:auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.nav button{
+  min-height:58px;border:0;background:transparent;color:var(--muted);border-radius:16px;
+  padding:8px 5px;font-size:11px;letter-spacing:.05em
+}
+.nav button.active{background:var(--blush);color:var(--deep)}
+.nav small{display:block;font-size:9px;margin-top:2px;opacity:.8}
+.nav .plus{font-size:20px;line-height:1}
+
+.modal{
+  position:fixed;inset:0;z-index:60;background:rgba(66,52,47,.28);
+  display:none;align-items:flex-end;justify-content:center;padding:18px 12px calc(18px + env(safe-area-inset-bottom))
+}
+.modal.open{display:flex}
+.sheet{
+  width:min(520px,100%);max-height:88vh;overflow:auto;background:#fffaf7;border:1px solid var(--line);
+  border-radius:26px;padding:18px;box-shadow:0 20px 60px rgba(52,36,31,.16)
+}
+.sheet-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.sheet-title{font-family:"Cormorant Garamond","Zen Maru Gothic",serif;font-size:24px;color:#5c4f4b}
+.sheet-close{border:0;background:#f5ebe6;border-radius:50%;width:38px;height:38px;font-size:20px}
+.field{margin:12px 0}
+.field label{display:block;font-size:11px;color:#8c7b75;margin:0 0 6px 2px}
+.field input,.field textarea{
+  width:100%;border:1px solid #e1d2cb;background:#fff;border-radius:14px;padding:12px 13px;
+  font-size:16px;color:#574b47
+}
+.field textarea{min-height:86px;resize:vertical}
+.time-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sheet-actions{display:flex;gap:10px;margin-top:16px}
+.primary,.danger,.ghost{
+  border:0;border-radius:14px;padding:12px 14px;min-height:46px
+}
+.primary{background:#c7a39a;color:white;flex:1}
+.ghost{background:#f2e8e3;color:#6f5e58}
+.danger{background:#f7e3df;color:#a36058}
+.hidden{display:none!important}
+
+@media(max-width:390px){
+  .app{padding-left:12px;padding-right:12px}
+  .calendar{gap:3px}
+  .day{min-height:68px;border-radius:14px}
+  .planner-title{font-size:31px}
+  .screen-title{font-size:29px}
+}
+
+@media (max-width:390px){
+  .app{padding-left:12px;padding-right:12px}
+  .calendar{gap:4px}
+  .day{height:73px;border-radius:14px}
+  .holiday-name{font-size:6px}
+  .seasonal-decoration{width:76px;height:58px;opacity:.36}
+}
+
+</style>
+</head>
+<body>
+<div class="season-particle-layer" aria-hidden="true"><span class="season-particle p1"></span><span class="season-particle p2"></span><span class="season-particle p3"></span><span class="season-particle p4"></span><span class="season-particle p5"></span></div>
+<div class="app">
+  <main>
+    <section id="monthlyView" class="view active">
+      <header class="planner-hero"><span class="seasonal-decoration seasonal-left" aria-hidden="true"></span><span class="seasonal-decoration seasonal-right" aria-hidden="true"></span>
+        <button type="button" class="planner-kicker logo-home" data-home aria-label="月間トップへ戻る">WATAMICHI</button>
+        <div class="planner-title">MY PLANNER</div>
+        <div class="planner-sub">自分を知る。今日を暮らす。</div>
+      </header>
+      <div class="month-head">
+        <button type="button" id="prevMonth" aria-label="前の月">‹</button>
+        <div class="month-title" id="monthTitle"></div>
+        <button type="button" id="nextMonth" aria-label="次の月">›</button>
+      </div>
+      <div class="calendar" id="calendar"></div>
+    </section>
+
+    <section id="dailyView" class="view">
+      <header class="planner-hero"><span class="seasonal-decoration seasonal-left" aria-hidden="true"></span><span class="seasonal-decoration seasonal-right" aria-hidden="true"></span>
+        <button type="button" class="planner-kicker logo-home" data-home aria-label="月間トップへ戻る">WATAMICHI</button>
+        <div class="planner-title">DAILY</div>
+        <div class="planner-sub">今日を暮らす。</div>
+      </header>
+      <div class="section-head">
+        <div class="eyebrow" id="dailyDate"></div>
+        <div class="screen-title">SCHEDULE</div>
+        <div class="screen-sub" id="dailyWeekday"></div>
+      </div>
+
+      <button type="button" class="self-peek" id="openSelf">
+        <div class="label">今日のわたし</div>
+        <div class="theme" id="peekTheme"></div>
+        <div class="go">自分を知る ＞</div>
+      </button>
+
+      <div class="timeline" id="timeline"></div>
+      <div class="daily-note">予定カードをタップすると編集・削除できます。予定はこの端末のブラウザ内に保存されます。</div>
+    </section>
+
+    <section id="todayView" class="view">
+      <header class="astro-hero">
+        <span class="seasonal-decoration seasonal-left" aria-hidden="true"></span>
+        <span class="seasonal-decoration seasonal-right" aria-hidden="true"></span>
+        <button type="button" class="astro-brand logo-home" data-home aria-label="月間トップへ戻る">NORIKO PERSONAL ASTRO</button>
+        <button type="button" class="astro-home" id="astroHomeToday" data-home aria-label="月間トップへ戻る">Ma boussole</button>
+        <div class="astro-tagline">自分を知る。今日を暮らす。</div>
+      </header>
+
+      <div class="section-head">
+        <div class="eyebrow" id="todayDate"></div>
+        <div class="screen-title">TODAY</div>
+        <div class="screen-sub">今日のわたし</div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">TODAY'S THEME</div>
+        <div class="astro-theme" id="todayTheme"></div>
+        <div class="card-label" style="margin-top:16px">TODAY'S MESSAGE</div>
+        <p class="body-copy" id="todayMessage"></p>
+      </div>
+      <div class="action-card">
+        <strong>TODAY'S ACTION</strong>
+        <div class="action-main" id="todayAction"></div>
+      </div>
+      <div class="action-card">
+        <strong>LET GO</strong>
+        <div class="action-main" id="todayLetGo"></div>
+      </div>
+
+      <div class="category-list">
+        <button class="category-btn" type="button" data-detail="work">
+          <span class="category-name"><b>WORK</b><span>今日の仕事</span></span><span class="chev">›</span>
+        </button>
+        <button class="category-btn" type="button" data-detail="relation">
+          <span class="category-name"><b>RELATION</b><span>対人関係</span></span><span class="chev">›</span>
+        </button>
+        <button class="category-btn" type="button" data-detail="health">
+          <span class="category-name"><b>HEALTH</b><span>心と身体</span></span><span class="chev">›</span>
+        </button>
+      </div>
+
+      <details class="reason">
+        <summary>なぜ今日はこのアドバイスなの？</summary>
+        <div class="reason-body">
+          <div id="todayReason"></div>
+          <div class="sample-note" id="todayNote"></div>
+        </div>
+      </details>
+    </section>
+
+    <section id="detailView" class="view">
+      <header class="astro-hero">
+        <span class="seasonal-decoration seasonal-left" aria-hidden="true"></span>
+        <span class="seasonal-decoration seasonal-right" aria-hidden="true"></span>
+        <button type="button" class="astro-brand logo-home" data-home aria-label="月間トップへ戻る">NORIKO PERSONAL ASTRO</button>
+        <button type="button" class="astro-home" id="astroHomeDetail" data-home aria-label="月間トップへ戻る">Ma boussole</button>
+        <div class="astro-tagline">自分を知る。今日を暮らす。</div>
+      </header>
+      <div class="section-head">
+        <div class="eyebrow" id="detailDate"></div>
+        <div class="screen-title" id="detailTitle"></div>
+        <div class="screen-sub" id="detailSub"></div>
+      </div>
+      <div id="detailStack" class="detail-stack"></div>
+      <details class="reason">
+        <summary>なぜ今日はこのアドバイスなの？</summary>
+        <div class="reason-body">
+          <div id="detailReason"></div>
+          <div class="sample-note" id="detailNote"></div>
+        </div>
+      </details>
+      <button type="button" class="back-btn" id="backToday">TODAYへ戻る</button>
+    </section>
+  </main>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <button type="button" id="navMonth" class="active">MONTH<small>月間</small></button>
+    <button type="button" id="navToday">TODAY<small>今日のわたし</small></button>
+    <button type="button" id="navAdd"><span class="plus">＋</span><small>予定追加</small></button>
+  </div>
+</nav>
+
+<div class="modal" id="eventModal" aria-hidden="true">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="sheet-head">
+      <div class="sheet-title" id="sheetTitle">予定を追加</div>
+      <button type="button" class="sheet-close" id="closeModal" aria-label="閉じる">×</button>
+    </div>
+    <form id="eventForm">
+      <input type="hidden" id="eventId">
+      <div class="field">
+        <label for="eventTitle">タイトル</label>
+        <input id="eventTitle" required maxlength="60" placeholder="例：打ち合わせ">
+      </div>
+      <div class="field">
+        <label for="eventDate">日付</label>
+        <input id="eventDate" type="date" required>
+      </div>
+      <div class="time-grid">
+        <div class="field">
+          <label for="eventStart">開始</label>
+          <input id="eventStart" type="time" required value="10:00">
+        </div>
+        <div class="field">
+          <label for="eventEnd">終了</label>
+          <input id="eventEnd" type="time" required value="11:00">
+        </div>
+      </div>
+      <div class="field">
+        <label for="eventMemo">メモ</label>
+        <textarea id="eventMemo" maxlength="300" placeholder="必要ならメモ"></textarea>
+      </div>
+      <div class="sheet-actions">
+        <button type="button" class="danger hidden" id="deleteEvent">削除</button>
+        <button type="button" class="ghost" id="cancelEvent">キャンセル</button>
+        <button type="submit" class="primary">保存</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+const STORE_KEY = "watamichi_planner_events_v1";
+const SAMPLE_NOTICE = "UI確認用サンプル文章です。精密な出生図×対象日トランジット計算は次工程で差し替える前提です。";
+const sampleData = {
+  "2026-09-05": {
+    meta:{source:"ui-sample"},
+    today:{
+      theme:"余白を残して動く。",
+      message:"今日は、全部を一度に片づけようとするより、目の前のことをひとつずつ進める方が心地よさそうです。人との時間も、自分の時間も、少し余白を残して選んでみて。",
+      action:"予定と予定の間に10分だけ余白をつくる。",
+      letGo:"全部を今日中に決めること。",
+      reason:"今日は「動くこと」と「整えること」のバランスを見る日のサンプルとして設計しています。"
+    },
+    work:{
+      flow:"勢いだけで進めるより、優先順位を決めてひとつずつ片づけると流れを作りやすい日。",
+      bestUse:"人と話しながら考えを整理する仕事や、次の一手を決めるための確認作業。",
+      watch:"細かい仕事まで全部自分で抱え込まないこと。",
+      action:"午前中に、今日いちばん大切な仕事をひとつ終える。",
+      reason:"WORK画面の情報量・読みやすさを確認するためのサンプルです。"
+    },
+    relation:{
+      flow:"人とのやり取りを増やすより、心地よい距離感を選ぶことを大切にしたい日。",
+      communication:"伝える前に一度相手の話を最後まで聞く。確認したいことは、想像だけで決めず短く言葉にする。",
+      boundary:"相手に合わせすぎず、自分の予定やペースも同じくらい大切に。",
+      action:"返事を急がず、一度自分の気持ちを確認してから伝える。",
+      reason:"RELATIONを恋愛限定にせず、家族・友人・仕事など全般に使えるか確認するためのサンプルです。"
+    },
+    health:{
+      condition:"頭の中を使い続けると、休んでいるつもりでも気持ちの切り替えが遅くなりやすいかもしれません。",
+      carePoint:"何かを頑張って整えるより、身体側からゆっくりOFFへ切り替える時間を。",
+      healthcare:"湯船に10〜15分。",
+      healthcareNote:"温かい時間をひとつ入れて、今日のスイッチをゆっくり切る。",
+      reason:"HEALTHは医療判断ではなく、日常のセルフケアとして使えるか確認するためのサンプルです。"
+    }
+  }
+};
+const genericSample = {
+  meta:{source:"ui-sample"},
+  today:{theme:"今日のペースを、自分で選ぶ。",message:"この日は統合Prototypeの画面確認用データです。予定を眺めたあと、今の自分に必要なことをひとつ選ぶ使い方を想定しています。",action:"今日いちばん大切にしたいことを、ひとつ決める。",letGo:"先回りして全部を決めること。",reason:"この日にはまだ精密な占星術計算データを入れていません。"},
+  work:{flow:"優先順位をひとつ決めてから動く、というUI確認用サンプルです。",bestUse:"最初に大切な仕事を決める。",watch:"予定を増やしすぎない。",action:"最優先をひとつ書き出す。",reason:"精密な占星術計算前のUIサンプルです。"},
+  relation:{flow:"相手の反応より、自分がどう関わりたいかを確認するためのサンプルです。",communication:"短く、分かりやすく伝える。",boundary:"自分の時間も相手の時間も尊重する。",action:"ひとつだけ丁寧に返事をする。",reason:"精密な占星術計算前のUIサンプルです。"},
+  health:{condition:"無理のないペースを確認するためのサンプルです。",carePoint:"小さな休憩を意識する。",healthcare:"5分だけ外の空気に触れる。",healthcareNote:"頑張るためではなく、切り替えるための小休止に。",reason:"医療判断ではなく、日常セルフケア表示のUIサンプルです。"}
+};
+
+const HOLIDAYS={"2026-01-01":"元日","2026-01-12":"成人の日","2026-02-11":"建国記念の日","2026-02-23":"天皇誕生日","2026-03-20":"春分の日","2026-04-29":"昭和の日","2026-05-03":"憲法記念日","2026-05-04":"みどりの日","2026-05-05":"こどもの日","2026-05-06":"振替休日","2026-07-20":"海の日","2026-08-11":"山の日","2026-09-21":"敬老の日","2026-09-22":"国民の休日","2026-09-23":"秋分の日","2026-10-12":"スポーツの日","2026-11-03":"文化の日","2026-11-23":"勤労感謝の日","2027-01-01":"元日","2027-01-11":"成人の日","2027-02-11":"建国記念の日","2027-02-23":"天皇誕生日","2027-03-21":"春分の日","2027-03-22":"振替休日","2027-04-29":"昭和の日","2027-05-03":"憲法記念日","2027-05-04":"みどりの日","2027-05-05":"こどもの日","2027-07-19":"海の日","2027-08-11":"山の日","2027-09-20":"敬老の日","2027-09-23":"秋分の日","2027-10-11":"スポーツの日","2027-11-03":"文化の日","2027-11-23":"勤労感謝の日"};
+const MOON_PHASES={"2026-01-03":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"19:03"},"2026-01-11":{"phase":"last","icon":"🌗","label":"LAST","time":"00:48"},"2026-01-19":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"04:52"},"2026-01-26":{"phase":"first","icon":"🌓","label":"FIRST","time":"13:47"},"2026-02-02":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"07:09"},"2026-02-09":{"phase":"last","icon":"🌗","label":"LAST","time":"21:43"},"2026-02-17":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"21:01"},"2026-02-24":{"phase":"first","icon":"🌓","label":"FIRST","time":"21:28"},"2026-03-03":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"20:38"},"2026-03-11":{"phase":"last","icon":"🌗","label":"LAST","time":"18:39"},"2026-03-19":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"10:23"},"2026-03-26":{"phase":"first","icon":"🌓","label":"FIRST","time":"04:18"},"2026-04-02":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"11:12"},"2026-04-10":{"phase":"last","icon":"🌗","label":"LAST","time":"13:52"},"2026-04-17":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"20:52"},"2026-04-24":{"phase":"first","icon":"🌓","label":"FIRST","time":"11:32"},"2026-05-02":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"02:23"},"2026-05-10":{"phase":"last","icon":"🌗","label":"LAST","time":"06:10"},"2026-05-17":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"05:01"},"2026-05-23":{"phase":"first","icon":"🌓","label":"FIRST","time":"20:11"},"2026-05-31":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"17:45"},"2026-06-08":{"phase":"last","icon":"🌗","label":"LAST","time":"19:01"},"2026-06-15":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"11:54"},"2026-06-22":{"phase":"first","icon":"🌓","label":"FIRST","time":"06:55"},"2026-06-30":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"08:57"},"2026-07-08":{"phase":"last","icon":"🌗","label":"LAST","time":"04:29"},"2026-07-14":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"18:44"},"2026-07-21":{"phase":"first","icon":"🌓","label":"FIRST","time":"20:06"},"2026-07-29":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"23:36"},"2026-08-06":{"phase":"last","icon":"🌗","label":"LAST","time":"11:21"},"2026-08-13":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"02:37"},"2026-08-20":{"phase":"first","icon":"🌓","label":"FIRST","time":"11:46"},"2026-08-28":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"13:19"},"2026-09-04":{"phase":"last","icon":"🌗","label":"LAST","time":"16:51"},"2026-09-11":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"12:27"},"2026-09-19":{"phase":"first","icon":"🌓","label":"FIRST","time":"05:44"},"2026-09-27":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"01:49"},"2026-10-03":{"phase":"last","icon":"🌗","label":"LAST","time":"22:25"},"2026-10-11":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"00:50"},"2026-10-19":{"phase":"first","icon":"🌓","label":"FIRST","time":"01:13"},"2026-10-26":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"13:12"},"2026-11-02":{"phase":"last","icon":"🌗","label":"LAST","time":"05:28"},"2026-11-09":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"16:02"},"2026-11-17":{"phase":"first","icon":"🌓","label":"FIRST","time":"20:48"},"2026-11-24":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"23:54"},"2026-12-01":{"phase":"last","icon":"🌗","label":"LAST","time":"15:09"},"2026-12-09":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"09:52"},"2026-12-17":{"phase":"first","icon":"🌓","label":"FIRST","time":"14:43"},"2026-12-24":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"10:28"},"2026-12-31":{"phase":"last","icon":"🌗","label":"LAST","time":"03:59"},"2027-01-08":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"05:24"},"2027-01-16":{"phase":"first","icon":"🌓","label":"FIRST","time":"05:35"},"2027-01-22":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"21:17"},"2027-01-29":{"phase":"last","icon":"🌗","label":"LAST","time":"19:55"},"2027-02-07":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"00:56"},"2027-02-14":{"phase":"first","icon":"🌓","label":"FIRST","time":"16:58"},"2027-02-21":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"08:24"},"2027-02-28":{"phase":"last","icon":"🌗","label":"LAST","time":"14:17"},"2027-03-08":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"18:29"},"2027-03-16":{"phase":"first","icon":"🌓","label":"FIRST","time":"01:25"},"2027-03-22":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"19:44"},"2027-03-30":{"phase":"last","icon":"🌗","label":"LAST","time":"09:54"},"2027-04-07":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"08:51"},"2027-04-14":{"phase":"first","icon":"🌓","label":"FIRST","time":"07:57"},"2027-04-21":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"07:27"},"2027-04-29":{"phase":"last","icon":"🌗","label":"LAST","time":"05:18"},"2027-05-06":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"19:59"},"2027-05-13":{"phase":"first","icon":"🌓","label":"FIRST","time":"13:44"},"2027-05-20":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"19:59"},"2027-05-28":{"phase":"last","icon":"🌗","label":"LAST","time":"22:58"},"2027-06-05":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"04:40"},"2027-06-11":{"phase":"first","icon":"🌓","label":"FIRST","time":"19:56"},"2027-06-19":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"09:44"},"2027-06-27":{"phase":"last","icon":"🌗","label":"LAST","time":"13:54"},"2027-07-04":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"12:02"},"2027-07-11":{"phase":"first","icon":"🌓","label":"FIRST","time":"03:39"},"2027-07-19":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"00:45"},"2027-07-27":{"phase":"last","icon":"🌗","label":"LAST","time":"01:55"},"2027-08-02":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"19:05"},"2027-08-09":{"phase":"first","icon":"🌓","label":"FIRST","time":"13:54"},"2027-08-17":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"16:29"},"2027-08-25":{"phase":"last","icon":"🌗","label":"LAST","time":"11:27"},"2027-09-01":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"02:41"},"2027-09-08":{"phase":"first","icon":"🌓","label":"FIRST","time":"03:31"},"2027-09-16":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"08:04"},"2027-09-23":{"phase":"last","icon":"🌗","label":"LAST","time":"19:20"},"2027-09-30":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"11:36"},"2027-10-07":{"phase":"first","icon":"🌓","label":"FIRST","time":"20:47"},"2027-10-15":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"22:47"},"2027-10-23":{"phase":"last","icon":"🌗","label":"LAST","time":"02:29"},"2027-10-29":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"22:37"},"2027-11-06":{"phase":"first","icon":"🌓","label":"FIRST","time":"17:00"},"2027-11-14":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"12:26"},"2027-11-21":{"phase":"last","icon":"🌗","label":"LAST","time":"09:48"},"2027-11-28":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"12:24"},"2027-12-06":{"phase":"first","icon":"🌓","label":"FIRST","time":"14:22"},"2027-12-14":{"phase":"full","icon":"🌕","label":"FULL MOON","time":"01:09"},"2027-12-20":{"phase":"last","icon":"🌗","label":"LAST","time":"18:11"},"2027-12-28":{"phase":"new","icon":"🌑","label":"NEW MOON","time":"05:12"}};
+
+const MONTH_THEMES={
+  9:{name:"cosmos",base:"#fbf7f2",accent:"#cfa7a3",leaf:"#aaa28f",title:"夏の余韻から、秋のはじまりへ"},
+  10:{name:"kinmokusei",base:"#fbf7ee",accent:"#d8aa62",leaf:"#99a186",title:"香りに包まれる秋"},
+  11:{name:"momiji",base:"#f8f3ee",accent:"#aa7465",leaf:"#94816f",title:"深まる秋"}
+};
+const NEUTRAL_THEME={name:"neutral",base:"#fbf7f3",accent:"#c9a29c",leaf:"#a99a92",title:"季節の中で、今日を暮らす"};
+
+function seasonalSvg(name){
+  if(name==="cosmos"){
+    return `<svg viewBox="0 0 100 72" aria-hidden="true">
+      <path d="M8 69 C28 49,48 36,84 10" fill="none" stroke="#aaa28f" stroke-width="1.2" opacity=".58"/>
+      <path d="M33 46 C27 39,23 36,17 34 M55 31 C51 24,48 20,42 17 M67 23 C74 22,79 18,84 14" fill="none" stroke="#aaa28f" stroke-width="1" opacity=".48"/>
+      <g transform="translate(18 35)" fill="#d9b2b5" opacity=".72">
+        <ellipse rx="4" ry="9" transform="rotate(0) translate(0 -7)"/>
+        <ellipse rx="4" ry="9" transform="rotate(45) translate(0 -7)"/>
+        <ellipse rx="4" ry="9" transform="rotate(90) translate(0 -7)"/>
+        <ellipse rx="4" ry="9" transform="rotate(135) translate(0 -7)"/>
+        <ellipse rx="4" ry="9" transform="rotate(180) translate(0 -7)"/>
+        <ellipse rx="4" ry="9" transform="rotate(225) translate(0 -7)"/>
+        <ellipse rx="4" ry="9" transform="rotate(270) translate(0 -7)"/>
+        <ellipse rx="4" ry="9" transform="rotate(315) translate(0 -7)"/>
+        <circle r="3.2" fill="#b99a6c"/>
+      </g>
+      <g transform="translate(45 20) scale(.72)" fill="#e2c0c3" opacity=".65">
+        <ellipse rx="4" ry="9" transform="rotate(0) translate(0 -7)"/>
+        <ellipse rx="4" ry="9" transform="rotate(45) translate(0 -7)"/>
+        <ellipse rx="4" ry="9" transform="rotate(90) translate(0 -7)"/>
+        <ellipse rx="4" ry="9" transform="rotate(135) translate(0 -7)"/>
+        <ellipse rx="4" ry="9" transform="rotate(180) translate(0 -7)"/>
+        <ellipse rx="4" ry="9" transform="rotate(225) translate(0 -7)"/>
+        <ellipse rx="4" ry="9" transform="rotate(270) translate(0 -7)"/>
+        <ellipse rx="4" ry="9" transform="rotate(315) translate(0 -7)"/>
+        <circle r="3.2" fill="#b99a6c"/>
+      </g>
+    </svg>`;
+  }
+  if(name==="kinmokusei"){
+    return `<svg viewBox="0 0 100 72" aria-hidden="true">
+      <path d="M7 67 C31 48,49 31,88 9" fill="none" stroke="#99a186" stroke-width="1.3" opacity=".56"/>
+      <path d="M29 49 C20 47,17 42,12 38 M47 34 C40 31,38 25,34 20 M68 21 C75 22,81 18,87 13" fill="none" stroke="#99a186" stroke-width="1" opacity=".48"/>
+      <g fill="#d8aa62" opacity=".78">
+        <g transform="translate(26 44)"><circle cx="-3" cy="0" r="2.2"/><circle cx="3" cy="0" r="2.2"/><circle cx="0" cy="-3" r="2.2"/><circle cx="0" cy="3" r="2.2"/></g>
+        <g transform="translate(39 34)"><circle cx="-2.5" cy="0" r="1.9"/><circle cx="2.5" cy="0" r="1.9"/><circle cx="0" cy="-2.5" r="1.9"/><circle cx="0" cy="2.5" r="1.9"/></g>
+        <g transform="translate(58 26)"><circle cx="-3" cy="0" r="2.2"/><circle cx="3" cy="0" r="2.2"/><circle cx="0" cy="-3" r="2.2"/><circle cx="0" cy="3" r="2.2"/></g>
+        <g transform="translate(73 17)"><circle cx="-2.5" cy="0" r="1.9"/><circle cx="2.5" cy="0" r="1.9"/><circle cx="0" cy="-2.5" r="1.9"/><circle cx="0" cy="2.5" r="1.9"/></g>
+      </g>
+      <g fill="#99a186" opacity=".34">
+        <ellipse cx="35" cy="38" rx="9" ry="3.3" transform="rotate(-28 35 38)"/>
+        <ellipse cx="61" cy="22" rx="8" ry="3" transform="rotate(-24 61 22)"/>
+      </g>
+    </svg>`;
+  }
+  if(name==="momiji"){
+    return `<svg viewBox="0 0 100 72" aria-hidden="true">
+      <path d="M7 67 C27 52,53 35,88 8" fill="none" stroke="#94816f" stroke-width="1.3" opacity=".52"/>
+      <g fill="#aa7465" opacity=".70">
+        <path d="M25 43 l4 -9 4 6 7 -3 -3 7 7 3 -9 2 1 9 -6 -7 -5 6 1 -8 -9 -2 7 -3 -4 -7z"/>
+        <path d="M55 26 l3 -8 4 5 6 -3 -3 6 6 3 -8 1 1 8 -5 -6 -5 5 1 -7 -8 -2 6 -3 -3 -6z"/>
+        <path d="M75 15 l3 -7 3 4 5 -2 -2 5 5 2 -6 2 0 6 -4 -5 -4 4 1 -6 -6 -1 5 -3 -3 -5z"/>
+      </g>
+      <g fill="#c0916e" opacity=".46">
+        <path d="M41 36 l3 -6 3 4 5 -2 -2 5 5 2 -6 1 0 6 -4 -4 -4 3 1 -5 -6 -2 5 -2 -3 -5z"/>
+      </g>
+    </svg>`;
+  }
+  return `<svg viewBox="0 0 100 72" aria-hidden="true">
+    <path d="M10 62 C35 43,56 28,88 12" fill="none" stroke="#a99a92" stroke-width="1.2" opacity=".30"/>
+    <circle cx="39" cy="39" r="3" fill="#c9a29c" opacity=".28"/>
+    <circle cx="62" cy="25" r="2.5" fill="#b59a66" opacity=".24"/>
+  </svg>`;
+}
+
+function applySeasonTheme(monthIndex){
+  const monthNumber=monthIndex+1;
+  const theme=MONTH_THEMES[monthNumber] || NEUTRAL_THEME;
+  document.body.dataset.season=theme.name;
+  document.documentElement.style.setProperty("--season-base",theme.base);
+  document.documentElement.style.setProperty("--season-accent",theme.accent);
+  document.documentElement.style.setProperty("--season-leaf",theme.leaf);
+  document.querySelectorAll(".seasonal-decoration").forEach(el=>{
+    el.innerHTML=seasonalSvg(theme.name);
+  });
+}
+
+function moonIconSvg(phase){
+  const common=`viewBox="0 0 16 16" class="moon-svg" aria-hidden="true" focusable="false"`;
+  if(phase==="full"){
+    return `<svg ${common}><circle class="outline" cx="8" cy="8" r="5.2"/></svg>`;
+  }
+  if(phase==="new"){
+    return `<svg ${common}><circle class="outline" cx="8" cy="8" r="5.2"/><circle class="softfill" cx="8" cy="8" r="3.9"/></svg>`;
+  }
+  if(phase==="first"){
+    return `<svg ${common}><circle class="outline" cx="8" cy="8" r="5.2"/><path class="softfill" d="M8 2.8a5.2 5.2 0 0 1 0 10.4z"/></svg>`;
+  }
+  if(phase==="last"){
+    return `<svg ${common}><circle class="outline" cx="8" cy="8" r="5.2"/><path class="softfill" d="M8 2.8a5.2 5.2 0 0 0 0 10.4z"/></svg>`;
+  }
+  return "";
+}
+
+const monthNames=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const weekdayNames=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const $=id=>document.getElementById(id);
+
+let displayMonth=new Date(2026,8,1);
+let selectedDate=new Date(2026,8,5);
+let events=loadEvents();
+
+function iso(d){
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+}
+function parseDateOnly(s){
+  const [y,m,d]=s.split("-").map(Number);
+  return new Date(y,m-1,d);
+}
+function selectedData(){ return sampleData[iso(selectedDate)] || genericSample; }
+function loadEvents(){
+  try{
+    const raw=localStorage.getItem(STORE_KEY);
+    const arr=raw?JSON.parse(raw):[];
+    return Array.isArray(arr)?arr:[];
+  }catch(e){return []}
+}
+function saveEvents(){ localStorage.setItem(STORE_KEY,JSON.stringify(events)); }
+
+function showView(id){
+  applySeasonTheme(id==="monthlyView" ? displayMonth.getMonth() : selectedDate.getMonth());
+  document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+  $(id).classList.add("active");
+  $("navMonth").classList.toggle("active",id==="monthlyView");
+  $("navToday").classList.toggle("active",id==="todayView"||id==="detailView");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function goMonth(){
+  displayMonth=new Date(selectedDate.getFullYear(),selectedDate.getMonth(),1);
+  renderCalendar();
+  showView("monthlyView");
+}
+function formatDateLine(d){
+  return `${monthNames[d.getMonth()]} ${String(d.getDate()).padStart(2,"0")} · ${weekdayNames[d.getDay()]}`;
+}
+function renderCalendar(){
+  applySeasonTheme(displayMonth.getMonth());
+  $("monthTitle").textContent=`${monthNames[displayMonth.getMonth()]} ${displayMonth.getFullYear()}`;
+  const cal=$("calendar"); cal.innerHTML="";
+  ["SUN","MON","TUE","WED","THU","FRI","SAT"].forEach((x,idx)=>{
+    const el=document.createElement("div");
+    el.className="dow"+(idx===0?" sun":idx===6?" sat":"");
+    el.textContent=x;
+    cal.appendChild(el);
+  });
+  const y=displayMonth.getFullYear(),m=displayMonth.getMonth();
+  const first=new Date(y,m,1);
+  const start=new Date(y,m,1-first.getDay());
+  const now=new Date();
+  for(let i=0;i<42;i++){
+    const d=new Date(start); d.setDate(start.getDate()+i);
+    const btn=document.createElement("button");
+    btn.type="button"; btn.className="day";
+    const inMonth=d.getMonth()===m;
+    if(!inMonth) btn.classList.add("off");
+    if(d.getDay()===0) btn.classList.add("sun");
+    if(d.getDay()===6) btn.classList.add("sat");
+    if(d.toDateString()===now.toDateString()) btn.classList.add("today");
+    if(d.toDateString()===selectedDate.toDateString()) btn.classList.add("selected");
+    const dateKey=iso(d);
+    const hasEvent=events.some(e=>e.date===dateKey);
+    const isSample=dateKey==="2026-09-05";
+    const holiday=HOLIDAYS[dateKey] || "";
+    const moon=MOON_PHASES[dateKey] || null;
+    if(holiday) btn.classList.add("holiday");
+
+    const holidayHtml=holiday
+      ? `<span class="holiday-name">${escapeHtml(holiday)}</span>`
+      : `<span class="holiday-name"></span>`;
+
+    const moonName=moon
+      ? ({new:"新月",first:"上弦",full:"満月",last:"下弦"}[moon.phase] || "月相")
+      : "";
+    const moonHtml=moon
+      ? `<span class="moon-phase" title="${moonName} ${moon.time} JST" aria-label="${moonName}">${moonIconSvg(moon.phase)}</span>`
+      : `<span class="moon-phase"></span>`;
+
+    btn.innerHTML=`<span class="num">${d.getDate()}</span><span class="day-meta">${holidayHtml}${moonHtml}</span><span class="dots">${hasEvent?'<i class="dot"></i>':''}</span><span class="theme-mark">${isSample?'SELF sample':''}</span>`;
+    if(inMonth){
+      btn.addEventListener("click",()=>{
+        selectedDate=new Date(d); renderDaily(); renderCalendar(); showView("dailyView");
+      });
+    } else btn.disabled=true;
+    cal.appendChild(btn);
+  }
+}
+function renderDaily(){
+  const d=selectedDate;
+  applySeasonTheme(d.getMonth());
+  $("dailyDate").textContent=`${monthNames[d.getMonth()]} ${String(d.getDate()).padStart(2,"0")}`;
+  $("dailyWeekday").textContent=`${weekdayNames[d.getDay()]} · ${d.getFullYear()}`;
+  $("peekTheme").textContent=selectedData().today.theme;
+  const timeline=$("timeline"); timeline.innerHTML="";
+  for(let h=7;h<=23;h++){
+    const row=document.createElement("div"); row.className="hour-row";
+    row.innerHTML=`<div class="hour-label">${String(h).padStart(2,"0")}:00</div><div class="hour-space" data-hour="${h}"></div>`;
+    timeline.appendChild(row);
+  }
+  const dayEvents=events.filter(e=>e.date===iso(d)).sort((a,b)=>a.start.localeCompare(b.start));
+  dayEvents.forEach(ev=>{
+    const [sh,sm]=ev.start.split(":").map(Number);
+    const [eh,em]=ev.end.split(":").map(Number);
+    if(sh<7||sh>23) return;
+    const row=timeline.querySelector(`.hour-space[data-hour="${sh}"]`);
+    if(!row) return;
+    const startMin=sm;
+    const dur=Math.max(30,(eh*60+em)-(sh*60+sm));
+    const card=document.createElement("button");
+    card.type="button"; card.className="event-card";
+    card.style.top=`${(startMin/60)*74+3}px`;
+    card.style.height=`${Math.max(34,(dur/60)*74-6)}px`;
+    card.innerHTML=`<b>${escapeHtml(ev.title)}</b><small>${ev.start}–${ev.end}</small>`;
+    card.addEventListener("click",()=>openEventModal(ev));
+    row.appendChild(card);
+  });
+}
+function renderToday(){
+  const d=selectedDate,data=selectedData();
+  applySeasonTheme(d.getMonth());
+  $("todayDate").textContent=formatDateLine(d);
+  $("todayTheme").textContent=data.today.theme;
+  $("todayMessage").textContent=data.today.message;
+  $("todayAction").textContent=data.today.action;
+  $("todayLetGo").textContent=data.today.letGo;
+  $("todayReason").textContent=data.today.reason;
+  $("todayNote").textContent=data.meta.source==="ui-sample"?SAMPLE_NOTICE:"";
+}
+function renderDetail(kind){
+  applySeasonTheme(selectedDate.getMonth());
+  const data=selectedData();
+  const cfg={
+    work:{title:"WORK",sub:"今日の仕事",items:[
+      ["WORK FLOW",data.work.flow],["BEST USE",data.work.bestUse],["WATCH",data.work.watch],["WORK ACTION",data.work.action]
+    ],reason:data.work.reason},
+    relation:{title:"RELATION",sub:"対人関係",items:[
+      ["RELATION FLOW",data.relation.flow],["COMMUNICATION",data.relation.communication],["BOUNDARY",data.relation.boundary],["RELATION ACTION",data.relation.action]
+    ],reason:data.relation.reason},
+    health:{title:"HEALTH",sub:"心と身体",items:[
+      ["CONDITION",data.health.condition],["CARE POINT",data.health.carePoint]
+    ],reason:data.health.reason}
+  }[kind];
+  $("detailDate").textContent=formatDateLine(selectedDate);
+  $("detailTitle").textContent=cfg.title;
+  $("detailSub").textContent=cfg.sub;
+  const stack=$("detailStack"); stack.innerHTML="";
+  cfg.items.forEach(([label,text])=>{
+    const div=document.createElement("div"); div.className="detail";
+    div.innerHTML=`<b>${label}</b><p>${escapeHtml(text)}</p>`;
+    stack.appendChild(div);
+  });
+  if(kind==="health"){
+    const h=data.health;
+    const div=document.createElement("div"); div.className="healthcare";
+    div.innerHTML=`<span class="card-label">TODAY'S HEALTHCARE · 今日のおすすめヘルスケア</span><div class="big">${escapeHtml(h.healthcare)}</div><p class="body-copy" style="font-size:13px;margin-top:7px">${escapeHtml(h.healthcareNote)}</p>`;
+    stack.appendChild(div);
+  }
+  $("detailReason").textContent=cfg.reason;
+  $("detailNote").textContent=data.meta.source==="ui-sample"?SAMPLE_NOTICE:"";
+  showView("detailView");
+}
+function openEventModal(ev=null){
+  $("eventModal").classList.add("open");
+  $("eventModal").setAttribute("aria-hidden","false");
+  $("sheetTitle").textContent=ev?"予定を編集":"予定を追加";
+  $("eventId").value=ev?.id||"";
+  $("eventTitle").value=ev?.title||"";
+  $("eventDate").value=ev?.date||iso(selectedDate);
+  $("eventStart").value=ev?.start||"10:00";
+  $("eventEnd").value=ev?.end||"11:00";
+  $("eventMemo").value=ev?.memo||"";
+  $("deleteEvent").classList.toggle("hidden",!ev);
+  setTimeout(()=>$("eventTitle").focus(),80);
+}
+function closeEventModal(){
+  $("eventModal").classList.remove("open");
+  $("eventModal").setAttribute("aria-hidden","true");
+}
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+}
+function currentSelectedOrToday(){
+  return selectedDate || new Date();
+}
+
+$("prevMonth").addEventListener("click",()=>{displayMonth=new Date(displayMonth.getFullYear(),displayMonth.getMonth()-1,1);renderCalendar()});
+$("nextMonth").addEventListener("click",()=>{displayMonth=new Date(displayMonth.getFullYear(),displayMonth.getMonth()+1,1);renderCalendar()});
+$("openSelf").addEventListener("click",()=>{renderToday();showView("todayView")});
+$("navMonth").addEventListener("click",goMonth);
+$("navToday").addEventListener("click",()=>{renderToday();showView("todayView")});
+$("navAdd").addEventListener("click",()=>openEventModal());
+document.querySelectorAll("[data-home]").forEach(el=>{
+  el.addEventListener("click",goMonth);
+});
+$("backToday").addEventListener("click",()=>{renderToday();showView("todayView")});
+document.querySelectorAll("[data-detail]").forEach(b=>b.addEventListener("click",()=>renderDetail(b.dataset.detail)));
+$("closeModal").addEventListener("click",closeEventModal);
+$("cancelEvent").addEventListener("click",closeEventModal);
+$("eventModal").addEventListener("click",e=>{if(e.target===$("eventModal"))closeEventModal()});
+
+$("eventForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const id=$("eventId").value;
+  const title=$("eventTitle").value.trim();
+  const date=$("eventDate").value;
+  const start=$("eventStart").value,end=$("eventEnd").value,memo=$("eventMemo").value.trim();
+  if(!title||!date||!start||!end)return;
+  if(end<=start){alert("終了時刻は開始時刻より後にしてください。");return}
+  if(id){
+    const idx=events.findIndex(x=>x.id===id);
+    if(idx>=0) events[idx]={...events[idx],title,date,start,end,memo};
+  }else{
+    events.push({id:`e_${Date.now()}_${Math.random().toString(36).slice(2,7)}`,title,date,start,end,memo});
+  }
+  saveEvents();
+  selectedDate=parseDateOnly(date);
+  displayMonth=new Date(selectedDate.getFullYear(),selectedDate.getMonth(),1);
+  renderCalendar(); renderDaily(); closeEventModal(); showView("dailyView");
+});
+$("deleteEvent").addEventListener("click",()=>{
+  const id=$("eventId").value;
+  if(!id)return;
+  if(confirm("この予定を削除しますか？")){
+    events=events.filter(x=>x.id!==id);
+    saveEvents(); renderCalendar(); renderDaily(); closeEventModal();
+  }
+});
+
+renderCalendar();
+renderDaily();
+renderToday();
+</script>
+</body>
+</html>
